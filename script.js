@@ -1,4 +1,3 @@
-// Language toggle (FR / EN)
 const translations = {
   fr: {
     'hero.eyebrow': 'Mohammedia & environs',
@@ -9,6 +8,9 @@ const translations = {
     'stat1': 'Transparence',
     'stat2': 'Corporate Housing',
     'stat3': 'Réponse moyenne',
+    'prestige.title': 'Biens de prestige',
+    'prestige.sub': "Une sélection d'appartements, villas et locaux d'exception à Mohammedia et alentours.",
+    'prestige.cta': 'Voir tous les biens sur WhatsApp',
     'services.title': 'Nos services complets',
     'services.sub': 'Tout ce dont vous avez besoin pour vendre, louer ou gérer votre bien en toute sérénité.',
     's1.title': 'Vente & Achat',
@@ -75,6 +77,9 @@ const translations = {
     'stat1': 'Transparency',
     'stat2': 'Corporate Housing',
     'stat3': 'Avg. response',
+    'prestige.title': 'Prestige properties',
+    'prestige.sub': 'A selection of exceptional apartments, villas and commercial spaces in Mohammedia and surroundings.',
+    'prestige.cta': 'View all properties on WhatsApp',
     'services.title': 'Complete services',
     'services.sub': 'Everything you need to sell, rent or manage your property with complete peace of mind.',
     's1.title': 'Sales & Purchases',
@@ -141,15 +146,11 @@ function setLanguage(lang) {
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (translations[lang][key]) {
-      el.innerHTML = translations[lang][key];
-    }
+    if (translations[lang][key]) el.innerHTML = translations[lang][key];
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
-    if (translations[lang][key]) {
-      el.placeholder = translations[lang][key];
-    }
+    if (translations[lang][key]) el.placeholder = translations[lang][key];
   });
   const toggle = document.getElementById('langToggle');
   if (toggle) toggle.textContent = lang === 'fr' ? 'EN' : 'FR';
@@ -159,12 +160,10 @@ document.getElementById('langToggle')?.addEventListener('click', () => {
   setLanguage(currentLang === 'fr' ? 'en' : 'fr');
 });
 
-// Mobile menu
 document.getElementById('menuToggle')?.addEventListener('click', () => {
   document.getElementById('nav')?.classList.toggle('open');
 });
 
-// Form handler – opens WhatsApp with prefilled message
 document.getElementById('estimateForm')?.addEventListener('submit', function(e) {
   e.preventDefault();
   const form = e.target;
@@ -182,15 +181,13 @@ document.getElementById('estimateForm')?.addEventListener('submit', function(e) 
   message += `Type de bien : ${type}%0A`;
   if (details) message += `Détails : ${details}%0A`;
 
-  const url = `https://wa.me/212661108476?text=${message}`;
-  window.open(url, '_blank');
+  window.open(`https://wa.me/212661108476?text=${message}`, '_blank');
   form.reset();
-  alert(currentLang === 'fr' 
-    ? 'Merci ! WhatsApp va s\'ouvrir avec votre demande. Envoyez le message pour finaliser.' 
+  alert(currentLang === 'fr'
+    ? "Merci ! WhatsApp va s'ouvrir avec votre demande. Envoyez le message pour finaliser."
     : 'Thank you! WhatsApp will open with your request. Send the message to complete.');
 });
 
-// Close mobile nav on link click
 document.querySelectorAll('.nav a').forEach(link => {
   link.addEventListener('click', () => {
     document.getElementById('nav')?.classList.remove('open');
